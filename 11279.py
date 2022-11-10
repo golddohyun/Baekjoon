@@ -1,3 +1,4 @@
+## MaxHeap without using heapq module
 import sys
 input = sys.stdin.readline
 
@@ -6,10 +7,11 @@ class MaxHeap:
         self.arr = [0]
         
     def heap_insert(self, i):
-        child = len(self.arr)
+        cnt = len(self.arr)
         self.arr.append(i) 
-        parent = child//2 #부모노드는 1부터 가능 (child>=2)
-        while parent > 0 :
+        child = cnt
+        while child//2 > 0 :
+            parent = child//2 
             if self.arr[child] > self.arr[parent] :
                 self.arr[child], self.arr[parent] = self.arr[parent], self.arr[child]
                 child = parent
