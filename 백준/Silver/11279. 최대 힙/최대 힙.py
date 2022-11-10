@@ -1,14 +1,48 @@
+## MaxHeap without using heapq module
 import sys
-import heapq
+input = sys.stdin.readline
 
-heap = []
-n = int(sys.stdin.readline())
+class MaxHeap: 
+    def __init__(self):
+        self.arr = [0]
+        
+    def heap_insert(self, i):
+        cnt = len(self.arr)
+        self.arr.append(i) 
+        child = cnt
+        while child//2 > 0 :
+            parent = child//2 
+            if self.arr[child] > self.arr[parent] :
+                self.arr[child], self.arr[parent] = self.arr[parent], self.arr[child]
+                child = parent
+            else : break
+
+    def delete_max(self) :
+        if len(self.arr) == 1 : 
+            res = 0
+        else :
+            self.arr[1], self.arr[-1] = self.arr[-1], self.arr[1]
+            res = self.arr.pop()
+            self.maxheapify(1)
+        return res
+    
+    def maxheapify(self, i) :
+        left = i*2
+        right = i*2 +1
+        largest = i
+        if left < len(self.arr) and self.arr[left] > self.arr[largest]:
+            largest = left
+        if right < len(self.arr) and self.arr[right] > self.arr[largest]:
+            largest = right
+        if largest != i :
+            self.arr[largest], self.arr[i] = self.arr[i], self.arr[largest]
+            self.maxheapify(largest)
+
+m = MaxHeap()
+n = int(input())
 for _ in range(n):
-    m = int(sys.stdin.readline())
-    if m == 0:
-        if len(heap) == 0:
-            print(0)
-        else:
-            print((-1)*heapq.heappop(heap))
+    key_in = int(input())
+    if not key_in:
+        print(m.delete_max())
     else:
-        heapq.heappush(heap, (-1)*m)
+        m.heap_insert(key_in)
