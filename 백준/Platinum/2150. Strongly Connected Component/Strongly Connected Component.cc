@@ -10,22 +10,19 @@ vector<bool> finished;
 stack<int> s;
 int n, e, cnt;
  
-int dfs(int cur)
-{
+int dfs(int cur){
 	dfsn[cur] = ++cnt;
 	s.push(cur);
  
 	int ret = dfsn[cur];
  
-	for (int next : adj[cur])
-	{
+	for (int next : adj[cur]){
 		if (dfsn[next] == 0)
 			ret = min(ret, dfs(next));
-		else if (!finished[next])	//역방향 간선
+		else if (!finished[next])
 			ret = min(ret, dfsn[next]);
 	}
  
-	//자신, 자손들을 포함해서 갈 수 있는 최대의 조상이 자기 자신인 경우 SCC추출 시작.
 	if (ret == dfsn[cur]) {
 		vector<int> scc;
  
@@ -34,15 +31,12 @@ int dfs(int cur)
 			scc.push_back(val);
 			finished[val] = true;
 			if (val == cur)
-				break;
-		}
-		ans.push_back(scc);
-	}
+				break;}
+		ans.push_back(scc);}
 	return ret;
 }
  
-int main()
-{
+int main(){
 	scanf("%d %d", &n, &e);
  
 	adj.resize(n + 1);
@@ -52,7 +46,6 @@ int main()
 	for (int i = 0; i < e; ++i) {
 		int from, to;
 		scanf("%d %d", &from, &to);
- 
 		adj[from].push_back(to);
 	}
  
@@ -65,13 +58,9 @@ int main()
 	sort(ans.begin(), ans.end());
  
 	printf("%d\n", ans.size());
- 
 	for (int i = 0; i < ans.size(); ++i) {
 		for (int j = 0; j < ans[i].size(); ++j)
 			printf("%d ", ans[i][j]);
 		printf("-1\n");
-	}
-	
-	
- 
+	}	
 	return 0;}
