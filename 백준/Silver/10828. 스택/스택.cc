@@ -7,15 +7,16 @@ int main(void) {
     cin.tie(0);
     int n;
     cin >> n;
+    cin.ignore();
+
     stack<int> S;
     
     // push X, pop, size, top, empty
     while(n--) {
         string c;
-        cin >> c;
+        getline(cin, c);
         if (c[1] == 'u') {
-            int x;
-            cin >> x;
+            int x = stoi(c.substr(5));
             S.push(x);
         }
         else if (c[0] == 'p') {
