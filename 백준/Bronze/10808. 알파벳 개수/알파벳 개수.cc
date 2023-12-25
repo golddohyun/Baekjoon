@@ -1,25 +1,21 @@
 #include <bits/stdc++.h>
 #include <iostream>
-#include <map>
 using namespace std;
 
-
 int main() {
+    int maxlen = (int)'z'-'a'+1;
+    int dct_arr[maxlen] = {0};
     string input;
-    map<char, int> dct;
-
     cin >> input;
 
-    for (char key = 'a'; key <= 'z'; ++key) {
-        dct[key] = 0;
-    }
-
     for (auto c : input){
-        dct[c]++;
+        int tmp = c - 'a';
+        dct_arr[tmp]++;
     }
 
-    for (const auto& pair : dct) {
-        cout << pair.second << ' ';
+    for (int i = 0; i < maxlen; ++i) {
+        cout << dct_arr[i] << ' ';
     }
+
     return 0;
 }
