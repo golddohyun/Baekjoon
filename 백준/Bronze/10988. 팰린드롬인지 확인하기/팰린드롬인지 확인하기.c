@@ -1,13 +1,12 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-#define MAXLEN 1000001
+#include <string.h>
 
 int is_palindrome(const char* strs, const int str_len) {
-    int start =0;
-    int end = str_len-1;
+    int start = 0;
+    int end = str_len - 1;
     while (start < end) {
-        if (strs[start]!= strs[end]) {
+        if (strs[start] != strs[end]) {
             return 0;
         }
         start++;
@@ -17,12 +16,20 @@ int is_palindrome(const char* strs, const int str_len) {
 }
 
 int main() {
-    char strs[MAXLEN];
-    scanf("%[^\n]", strs); 
-    getchar(); 
-    int len = strlen(strs);
+    int capacity = 10; // 초기 버퍼 크기
+    char* strs = malloc(capacity * sizeof(char));
+    int len = 0;
+    char ch;
+    while ((ch = getchar()) != '\n' && ch != EOF) {
+        strs[len++] = ch;
+        if (len == capacity) {
+            capacity *= 2; // 버퍼 크기를 두 배로 늘림
+            strs = realloc(strs, capacity * sizeof(char));
+        }
+    }
+    strs[len] = '\0'; // 문자열 종료
 
     printf("%d", is_palindrome(strs, len));
-
+    free(strs); // 메모리 해제
+    return 0;
 }
-
