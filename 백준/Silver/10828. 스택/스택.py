@@ -1,29 +1,21 @@
 import sys
+input = sys.stdin.readline
 
-n = int(sys.stdin.readline())
-S = []
-
-# push X, pop, size, top, empty
-for i in range(n):
-    c = sys.stdin.readline().split()
-    if c[0] == 'push':
-        x = int(c[1])
-        S.append(x)
-    elif c[0] == 'pop':
-        if len(S) == 0:
+N = int(input())
+mystack = list()
+for _ in range(N) :
+    ord_list = input().split()
+    if ord_list[0] == 'push' :
+        mystack.append(int(ord_list[1]))
+    elif ord_list[0] == 'pop' :
+        if not mystack :
             print(-1)
-        else:
-            print(S[-1])
-            S.pop()
-    elif c[0] == 'size':
-        print(len(S))
-    elif c[0] == 'empty':
-        if len(S) == 0:
-            print(1)
-        else:
-            print(0)
-    elif c[0] == 'top':
-        if len(S) == 0:
-            print(-1)
-        else:
-            print(S[-1])
+        else :
+            last_elem = mystack.pop()
+            print(last_elem)
+    elif ord_list[0] == 'size' :
+        print(len(mystack))
+    elif ord_list[0] == 'empty' :
+        print(1) if len(mystack) == 0 else print(0)
+    elif ord_list[0] == 'top' :
+        print(-1) if len(mystack) == 0 else print(mystack[-1])
