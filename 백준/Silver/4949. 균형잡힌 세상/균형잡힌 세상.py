@@ -1,30 +1,20 @@
-import sys
-
 while True:
-    input = sys.stdin.readline().rstrip()
-    if input == ".": break
-    ST = []
-    flg = False
-    
-    for x in input:
-        if x == '(' or x == '[':
-            ST.append(x)
-        elif x == ')' or x == ']':
-            if not ST:
-                flg = True
+    lang = input().rstrip()
+    if lang == '.' : break
+    mystack = []
+    flag = True
+    for l in lang :
+        if l in "([" :
+            mystack.append(l)
+        elif l in ")]" :
+            if not mystack :
+                flag = False
                 break
-            elif x == ')' and ST[-1] == '(':
-                ST.pop()
-            elif x == ']' and ST[-1] == '[':
-                ST.pop()
-            else:
-                flg = True
-                break
-    
-    if ST:
-        flg = True
-    
-    if not flg:
-        print("yes")
-    else:
+            elif (l == ")" and mystack[-1] == "(") or (l == "]" and mystack[-1] == "[") :
+                mystack.pop()
+            else :
+                mystack.append(l)
+    if mystack or not flag :
         print("no")
+    else :
+        print("yes")
